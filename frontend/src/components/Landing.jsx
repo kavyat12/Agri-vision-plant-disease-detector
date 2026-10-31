@@ -12,9 +12,8 @@ export function Hero({ onAnalyze, t }) {
           <div className="mt-6 flex flex-wrap gap-3">
             <button onClick={onAnalyze} className="btn-primary">Start analysis</button>
           </div>
-          <dl className="mt-6 grid grid-cols-3 gap-3 max-w-md">
+          <dl className="mt-6 grid grid-cols-2 gap-3 max-w-md">
             {[
-              ['<60s', 'to report'],
               ['8', 'diseases in library'],
               ['4', 'languages'],
             ].map(([v, l]) => (

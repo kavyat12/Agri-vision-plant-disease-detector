@@ -92,7 +92,7 @@ export default function Header({ activeTab, onTab, dark, onToggleDark, locale, o
               )}
             </button>
             <a
-              href="https://github.com/kv-creates/plant-disease-detector"
+              href="https://github.com/kavyat12/Agri-vision-plant-disease-detector"
               target="_blank"
               rel="noreferrer"
               className="btn-outline !min-h-0 !py-2 !px-4 text-sm"
