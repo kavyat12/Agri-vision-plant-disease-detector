@@ -7,12 +7,24 @@ from PIL import Image
 
 from app.api.auth import _auth_attempts
 from app.api.extra import _chat_request_timestamps
-from app.core.config import settings
+from app.core.config import Settings, settings
 from app.main import app
 from app.models.schemas import DiseaseDetectionRequest, DiseaseDetectionResponse, LLMProvider
 from app.services.llm_vision import _coerce_disease, llm_vision_service
 
 client = TestClient(app)
+
+
+@pytest.mark.parametrize(
+    ("value", "expected"),
+    [
+        ("https://one.example, https://two.example", ["https://one.example", "https://two.example"]),
+        ('["https://one.example"]', ["https://one.example"]),
+    ],
+)
+def test_cors_origins_accept_csv_and_json(value, expected, monkeypatch):
+    monkeypatch.setenv("CORS_ORIGINS", value)
+    assert Settings(_env_file=None).cors_origins == expected
 
 
 def _leaf_bytes(fmt: str = "JPEG", size=(320, 240), color=(74, 160, 90)) -> bytes:

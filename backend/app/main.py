@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import logging
-import os
 import time
 from contextlib import asynccontextmanager
 
@@ -37,10 +36,6 @@ async def lifespan(app: FastAPI):
         "startup app=%s version=%s debug=%s cors=%s",
         settings.app_name, settings.app_version, settings.debug, settings.cors_origins,
     )
-    # Allow env override without code change (Docker/CI friendly).
-    env_cors = os.getenv("CORS_ORIGINS")
-    if env_cors:
-        settings.cors_origins = [o.strip() for o in env_cors.split(",") if o.strip()]
     yield
     log.info("shutdown complete")
 

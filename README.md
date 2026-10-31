@@ -156,6 +156,20 @@ npm run dev
 Frontend proxies `/api` → `http://localhost:8000` in dev (see
 `frontend/vite.config.js`).
 
+## Deploy to Render
+
+The root [`render.yaml`](./render.yaml) Blueprint defines a public static
+frontend and a FastAPI backend. In the [Render Dashboard](https://dashboard.render.com/),
+choose **New → Blueprint**, connect this GitHub repository, and apply the
+Blueprint. Render will prompt for `OPENAI_API_KEY`; enter it only in Render's
+secret-value prompt, never in GitHub or this file.
+
+The backend uses a 1 GB persistent disk for SQLite account and crop records.
+Render's static site is free, but the backend plan and persistent disk can
+incur Render charges. OpenAI API usage is billed separately. The backend health
+endpoint is `/api/v1/health`; the deployed website and API URLs are based on
+the service names in `render.yaml`.
+
 ## Configuration
 
 Backend (`backend/.env`):

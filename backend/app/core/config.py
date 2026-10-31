@@ -1,7 +1,10 @@
 
+import json
 from pathlib import Path
+from typing import Annotated
 
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import field_validator
+from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -20,10 +23,23 @@ class Settings(BaseSettings):
     max_file_size_mb: int = 10
     allowed_extensions: list[str] = ["jpg", "jpeg", "png", "webp"]
 
-    cors_origins: list[str] = ["http://localhost:5173", "http://localhost:3000"]
+    cors_origins: Annotated[
+        list[str],
+        NoDecode,
+    ] = ["http://localhost:5173", "http://localhost:3000"]
     rate_limit_per_minute: int = 60
     chat_rate_limit_per_minute: int = 10
     auth_rate_limit_per_minute: int = 20
+
+    @field_validator("cors_origins", mode="before")
+    @classmethod
+    def parse_cors_origins(cls, value: object) -> list[str]:
+        if isinstance(value, str):
+            stripped = value.strip()
+            value = json.loads(stripped) if stripped.startswith("[") else stripped.split(",")
+        if not isinstance(value, list) or not all(isinstance(origin, str) for origin in value):
+            raise ValueError("CORS_ORIGINS must be a comma-separated string or JSON list of strings")
+        return [origin.strip() for origin in value if origin.strip()]
 
     @property
     def max_file_size(self) -> int:

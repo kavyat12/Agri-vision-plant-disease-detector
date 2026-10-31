@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: agrivision-api-kavyat12
+    runtime: python
+    plan: starter
+    region: oregon
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/v1/health
+    disk:
+      name: agrivision-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.11
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: DEFAULT_LLM_PROVIDER
+        value: openai
+      - key: DEBUG
+        value: "false"
+      - key: DATABASE_PATH
+        value: /data/agrivision.sqlite3
+      - key: CORS_ORIGINS
+        value: '["https://agrivision-web-kavyat12.onrender.com"]'
+  - type: static
+    name: agrivision-web-kavyat12
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_BASE
+        value: https://agrivision-api-kavyat12.onrender.com/api/v1
