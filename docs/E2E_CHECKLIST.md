@@ -1,0 +1,21 @@
+# E2E manual checklist (10 minutes)
+
+- [ ] `backend`: `pytest -q` → current test suite passes
+- [ ] `backend`: `uvicorn app.main:app` → `/docs` loads, `/api/v1/health` lists configured providers
+- [ ] `frontend`: `npm install && npm run lint && npm run build`
+- [ ] Home: hero renders; unavailable backend/provider is not represented as a diagnosis
+- [ ] Upload: drag-drop + browse + Enter/Esc keyboard paths
+- [ ] Validation: `.txt` upload shows inline error (no `alert`)
+- [ ] Analysis: stepper advances, skeletons show, result appears
+- [ ] Report: severity, symptoms, copy/share/print, 1–5 star rating; no uncalibrated confidence
+- [ ] Library: 6+ cards render offline even if API is down
+- [ ] History: analyze → history tab shows entry → restore → export → clear
+- [ ] Chat: without a provider key, configuration error appears and no canned answer is returned
+- [ ] Chat: with a provider key, send a question, retry failures, search/rename/delete a conversation, and confirm local history after reload
+- [ ] Account: register with a valid password, sign out, sign in, and verify an invalid password is rejected
+- [ ] Crops: create, edit, and delete a record; sign in as another account and verify the first user's record is not visible or editable
+- [ ] Language: Kannada, Hindi, and English navigation/chat controls render correctly on mobile and desktop
+- [ ] Live analysis: missing provider returns 503; provider failures remain errors
+- [ ] Dark mode: toggle persists after reload, no white flash
+- [ ] Mobile 360px: no horizontal scroll, 44px targets, readable type
+- [ ] `prefers-reduced-motion`: animations collapse to instant
