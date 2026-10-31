@@ -153,8 +153,11 @@ npm install
 npm run dev
 ```
 
-Frontend proxies `/api` → `http://localhost:8000` in dev (see
-`frontend/vite.config.js`).
+Frontend API calls use `VITE_API_BASE` (default `/api/v1`). In dev, Vite
+proxies API requests and the API docs/OpenAPI endpoints to
+`http://localhost:8000` (see `frontend/vite.config.js`). Docker Compose uses
+the frontend Nginx proxy to reach the `backend` service; Render sets the
+frontend API base to the deployed backend URL in `render.yaml`.
 
 ## Deploy to Render
 
@@ -192,6 +195,10 @@ Frontend (`frontend/.env`):
 ```env
 VITE_API_BASE=/api/v1
 ```
+
+For a separately hosted frontend, set `VITE_API_BASE` to the backend's full
+versioned API URL, such as `https://your-api.example.com/api/v1`. The footer's
+API docs link uses that same backend configuration.
 
 ## API reference
 

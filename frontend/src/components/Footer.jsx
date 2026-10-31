@@ -1,3 +1,5 @@
+import { getApiDocsUrl } from '../utils/api'
+
 export default function Footer({ onTab, backendOnline, t }) {
   return (
     <footer className="mt-10 border-t" style={{ borderColor: 'var(--line)', background: 'var(--surface)' }}>
@@ -32,7 +34,7 @@ export default function Footer({ onTab, backendOnline, t }) {
         <div>
           <p className="font-bold text-sm mb-3">Resources</p>
           <ul className="space-y-2 text-sm" style={{ color: 'var(--muted)' }}>
-            <li><a className="hover:underline underline-offset-4" href="http://localhost:8000/docs" target="_blank" rel="noreferrer">API docs</a></li>
+            <li><a className="hover:underline underline-offset-4" href={getApiDocsUrl()} target="_blank" rel="noreferrer">API docs</a></li>
             <li><a className="hover:underline underline-offset-4" href="https://github.com/kavyat12/Agri-vision-plant-disease-detector" target="_blank" rel="noreferrer">GitHub repository</a></li>
             <li>OpenAI GPT-4o · Claude 3.5</li>
             <li>MIT licensed</li>

@@ -12,6 +12,14 @@ export default defineConfig(({ mode }) => {
           target: env.VITE_PROXY_TARGET || 'http://localhost:8000',
           changeOrigin: true,
         },
+        '/docs': {
+          target: env.VITE_PROXY_TARGET || 'http://localhost:8000',
+          changeOrigin: true,
+        },
+        '/openapi.json': {
+          target: env.VITE_PROXY_TARGET || 'http://localhost:8000',
+          changeOrigin: true,
+        },
       },
     },
     preview: { port: 4173 },

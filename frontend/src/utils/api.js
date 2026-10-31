@@ -1,5 +1,10 @@
-const API_BASE = import.meta.env.VITE_API_BASE || '/api/v1'
+const API_BASE = (import.meta.env.VITE_API_BASE || '/api/v1').replace(/\/+$/, '')
 const DEFAULT_TIMEOUT_MS = 60000
+
+export function getApiDocsUrl() {
+  const apiRoot = API_BASE.replace(/\/api\/v1$/i, '')
+  return `${apiRoot}/docs`
+}
 
 class ApiError extends Error {
   constructor(message, { status, payload } = {}) {

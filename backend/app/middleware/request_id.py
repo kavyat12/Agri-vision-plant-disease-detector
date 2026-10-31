@@ -1,8 +1,11 @@
 """Request-ID middleware — correlation without dependencies."""
 from __future__ import annotations
+
 import uuid
+
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
+
 
 class RequestIdMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):

@@ -12,7 +12,6 @@ import io
 
 from PIL import Image, ImageOps
 
-
 ALLOWED_FORMATS = {"JPEG", "PNG", "WEBP"}
 MAX_DIMENSION = 2048
 NORMALIZED_MAX_DIMENSION = 1568
@@ -31,7 +30,7 @@ def verify_and_normalize(image_bytes: bytes) -> tuple[bytes, dict]:
     try:
         with Image.open(io.BytesIO(image_bytes)) as img:
             img.verify()
-    except Exception as exc:  # noqa: BLE001 - surface as validation error
+    except Exception as exc:
         raise ImageValidationError(f"File is not a valid image: {exc}") from exc
 
     try:
@@ -66,7 +65,7 @@ def verify_and_normalize(image_bytes: bytes) -> tuple[bytes, dict]:
             return normalized, meta
     except ImageValidationError:
         raise
-    except Exception as exc:  # noqa: BLE001
+    except Exception as exc:
         raise ImageValidationError(f"Could not process image: {exc}") from exc
 
 
